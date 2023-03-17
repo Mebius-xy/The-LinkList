@@ -46,11 +46,11 @@ int insertdata(node* head, int i, int a)
 	p->next = newnode;
 	return OK;
 }
-void deletedata(node* head, int i, int* e)//É¾³ıµÚiÎ»µÄ½áµã£¬²¢½«data¸³¸ø*e
+void deletedata(node* head, int i, int* e)//åˆ é™¤ç¬¬iä½çš„ç»“ç‚¹ï¼Œå¹¶å°†dataèµ‹ç»™*e
 {
 	int j = 1;
 	node* p = head;
-	while (p->next && j < i)//ÕÒµ½µÚiÎ»µÄ½áµã
+	while (p->next && j < i)//æ‰¾åˆ°ç¬¬iä½çš„ç»“ç‚¹
 	{
 		p = p->next;
 		++j;
@@ -59,7 +59,7 @@ void deletedata(node* head, int i, int* e)//É¾³ıµÚiÎ»µÄ½áµã£¬²¢½«data¸³¸ø*e
 	{
 		printf("error\n");
 	}
-	node* q = p->next;               //É¾³ıÁ÷³Ì
+	node* q = p->next;               //åˆ é™¤æµç¨‹
 	p->next = q->next;
 	*e = q->data;
 	free(q);
@@ -105,7 +105,16 @@ void endinsert(node* head, int i)
 }
 void overturn(node* head)
 {
-
+	node* p;
+	node* s;
+	while (head->next)
+	{
+		p = head->next;
+		head->next = p->next;
+		p->next = s;
+		s = p;
+	}
+	head->next = s;
 }
 int main()
 {
@@ -121,11 +130,14 @@ int main()
 	deletedata(head, 5, p);
 	getdata(head);
 	printf("\n");
-	headinsert(head, 3);//scanfº¯ÊıÃ»ÓĞÔË×÷£¬ÎªÊ²Ã´£¿½áµã²åÈëµÄÃ»ÓĞÎÊÌâ¡£
+	headinsert(head, 3);//scanfå‡½æ•°æ²¡æœ‰è¿ä½œï¼Œä¸ºä»€ä¹ˆï¼Ÿç»“ç‚¹æ’å…¥çš„æ²¡æœ‰é—®é¢˜ã€‚
 	putdata(head, 3);
 	getdata(head);
 	printf("\n");
 	endinsert(head, 3);
 	getdata(head);
+	//printf("\n");
+	overturn(head);//ä¸ºä»€ä¹ˆï¼Ÿoverturnæ²¡æœ‰ç”Ÿæ•ˆ
+	getdata(head);//å…¶æ¬¡ï¼Œè¿™ä¸ªå‡½æ•°è¢«è·³è¿‡äº†ï¼Œä¸ºä»€ä¹ˆï¼Ÿ
 	return 0;
 }
