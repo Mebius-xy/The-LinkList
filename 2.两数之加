@@ -1,0 +1,41 @@
+struct ListNode* addTwoNumbers(struct ListNode* l1, struct ListNode* l2){
+    struct ListNode* p=NULL,*head=NULL;
+    int num=0;
+    while(l1||l2)
+    {
+        int x=l1?l1->val:0;
+        int y=l2?l2->val:0;
+        int sum=x+y+num;
+        if (!head) {
+            head = p = malloc(sizeof(struct ListNode));
+            p->val = sum % 10;
+            p->next = NULL;
+        } else {
+        struct ListNode* newnode=(struct ListNode*)malloc(sizeof(struct ListNode));
+        newnode->next=NULL;
+        newnode->val=sum%10;
+        p->next=newnode;
+        p=newnode;
+        }
+        num=sum/10;
+        if(l1)
+        {
+            l1=l1->next;
+        }
+        if(l2)
+        {
+            l2=l2->next;
+        }
+        if(num>0)
+        {
+            p->next=(struct ListNode*)malloc(sizeof(struct ListNode));
+            p->next->val=num;
+            p->next->next=NULL;
+        }
+    }
+    return head;
+}
+--一开始的想法是把两个链表的数据分离并组合再分离，但是由于技术问题，这项方法作废--
+--后来看了题解，发现题解更方便，也更简洁，越简洁的代码错误的地方越少--
+--总结：9-19行代码很重要，因为需要返回一个链表的头节点，而且我用的是尾插法，所以就需要两个结构体指针，一个在头部保持不变，一个逐个移向尾部--
+--又因为暂时没想到其他更好的方法，就发现这部分的代码很值得去理解并学习--
